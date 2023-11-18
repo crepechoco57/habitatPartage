@@ -1,5 +1,10 @@
 controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+  resource:
+    path: ../src/Controller/
+    namespace: App\Controller
+  type: attribute
+ajax_villes_by_departement:
+  path: "/ajax/villes-by-departement"
+  controller: 'App\Controller\AjaxController::getVillesByDepartement'
+app_logout:
+  path: /logout

@@ -5,12 +5,38 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">  
         {% endblock %}
-
         {% block javascripts %}
         {% endblock %}
     </head>
+     
     <body>
-        {% block body %}{% endblock %}
+    {% block header %}
+    <header>
+        <ul class='header-links'>
+         <li><a href="{{ path('app_home') }}">Accueil(ttes les annonces)</a></li>
+        <li><a href="{{ path('app_departement') }}">Poster Annonce</a></li>
+        {# Tous les utilisateurs : Si connecté, affiche le mail et lien deconnexion #}
+             {% if app.user %}
+                <li>{{ app.user.email }} connecté</li>
+                <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+                <li><a href="{{ path('app_user_show', {'id': app.user.id}) }}">Profil</a></li>
+                {# Selon le role, Gestion de tous les User Ou Gestion du profil User #}
+                {% if 'ROLE_ADMIN' in app.user.roles %}
+                    <li><a href="{{ path('app_user_index') }}">Gestion des utilisateurs</a></li>
+                {% endif %}
+            {% else %}
+                <li><a href="{{ path('app_login') }}">Login</a></li>
+                <li><a href="{{ path('app_register') }}">Inscription</a></li>
+            {% endif %} 
+        </ul>
+    </header>   
+    {% endblock %}    
+   {% block body %}
+        <div class="example-wrapper">
+        {# <h1>Hello {{ app.user.email }}! ✅</h1> #}
+ 
+    {% endblock %}
     </body>
 </html>

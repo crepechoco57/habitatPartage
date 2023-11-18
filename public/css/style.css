@@ -1,0 +1,15 @@
+body {
+  box-sizing: border-box;
+}
+header {
+  width: 100vw;
+  border: 1px solid blue;
+  background-color: bisque;
+  margin: 0;
+}
+.header-links {
+  display: flex;
+}
+.header-links li {
+  margin-left: 2em;
+}

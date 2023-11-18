@@ -1,0 +1,17 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Your Form</h1>
+
+    <form method="post" action="{{ path('app_home') }}">
+        {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.department) }}
+            {{ form_widget(form.department, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        {{ form_end(form) }}
+    </form>
+</body>
+</html>
