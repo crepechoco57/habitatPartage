@@ -17,7 +17,9 @@ class AjaxController extends AbstractController
 #[Route('/ajax/villes-by-departement', name: 'ajax_villes_by_departement')]
 public function getVillesByDepartement(Request $request, ManagerRegistry $doctrine): JsonResponse
 {
-    $departementCode = $request->request->get('departement_code');
+    $codeDepartement = $request->request->get('code_departement');
+    
+
     $villeSearch = $request->request->get('ville_search');
 
     $entityManager = $doctrine->getManager();
@@ -25,20 +27,20 @@ public function getVillesByDepartement(Request $request, ManagerRegistry $doctri
 
     $queryBuilder = $villeRepository->createQueryBuilder('v');
     $villes = $queryBuilder
-        ->where('v.departement_code = :departement_code')
+        ->where('v.code_departement = :code_departement')
         ->andWhere($queryBuilder->expr()->like('v.nom', ':ville_search'))
         ->setParameters([
-            'departement_code' => $departementCode,
+            'code_departement' => $codeDepartement,
             'ville_search' => $villeSearch . '%' 
         ])
         ->getQuery()
         ->getResult();
-
+            
     //Formatage JSON
     $formattedVilles = [];
     foreach ($villes as $ville) {
         $formattedVilles[] = [
-            'code_departement' => $ville->getDepartementCode(),
+            'code_departement' => $ville->getCodeDepartement(),
             'nom' => $ville->getNom(),
             'id' => $ville->getID()
         ];

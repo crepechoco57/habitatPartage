@@ -1,10 +1,14 @@
+//Gestion du filtre des villes selon DPT
+//Au click sur une ville : si soumission d'une nouvelle annonce : le formulaire doit récuperer l'id de cette ville
+//Au click sur une ville : si consultation des annonces: les annonces dont la ville a cet id doivent s'afficher
 document.addEventListener("DOMContentLoaded", function () {
   var departementSelect = document.getElementById("departementSelect");
   var villeSearchInput = document.getElementById("villeSearch");
   var villesContainer = document.getElementById("villesContainer");
-
+  var villeIdInput = document.getElementById("villeId");
+  //Encode en JSON le codedepartement selectionné et le contenu de l'input text ( ville )
   villeSearchInput.addEventListener("input", function () {
-    var departementCode = departementSelect.value;
+    var codeDepartement = departementSelect.value;
     var villeSearch = this.value;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/ajax/villes-by-departement", true);
@@ -16,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Analysez la réponse JSON.
         var villes = JSON.parse(xhr.responseText);
-        console.log(villes);
         if (villes.length > 0) {
           // Créez une liste <ul> pour afficher les villes.
           var ulElement = document.createElement("ul");
@@ -32,10 +35,10 @@ document.addEventListener("DOMContentLoaded", function () {
             // Ajoutez un gestionnaire d'événements pour gérer le clic sur la ville.
             villeLink.addEventListener("click", function (e) {
               e.preventDefault();
-              // Traitez le clic sur la ville ici. Vous pouvez rediriger l'utilisateur, afficher plus d'informations, etc.
-              alert("ID de la Ville sélectionnée : " + ville.id);
-              alert(document.location.href) + "/" + ville.id;
-              document.location.href += "/" + ville.id;
+              //Ici , il faudra traiter les deux éventualités, soit j'affiche les annonces liées à cette ville
+              //soit le formulaire de création d'annonce doit récupérer la valeur de l'id de la ville pour
+              //l'envoyer dans la BDD
+              villeIdInput.value = ville.id;
             });
 
             // Ajoutez le lien de la ville à l'élément <li>.
@@ -47,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     var data =
-      "departement_code=" + departementCode + "&ville_search=" + villeSearch;
+      "code_departement=" + codeDepartement + "&ville_search=" + villeSearch;
     xhr.send(data);
   });
 });
