@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\DepartementRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: DepartementRepository::class)]
 class Departement
@@ -21,6 +23,15 @@ class Departement
 
     #[ORM\Column(length: 255)]
     private ?string $test = null;
+    /**
+     * @ORM\OneToMany(targetEntity="Ville", mappedBy="departement")
+     */
+    private Collection $villes;
+
+    public function __construct()
+    {
+        $this->villes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -61,5 +72,12 @@ class Departement
         $this->test = $test;
 
         return $this;
+    }
+     /**
+     * @return Collection|Ville[]
+     */
+    public function getVilles(): Collection
+    {
+        return $this->villes;
     }
 }

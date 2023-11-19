@@ -8,7 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class LocationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -29,12 +29,17 @@ class LocationType extends AbstractType
                 'label' => 'Id de la ville',
                 'attr' => ['placeholder' => 'Id de la ville'],
             ]);
-        // Ajoutez d'autres champs si nécessaire
+            if ($options['show_submit_button']) {
+                $builder->add('submit', SubmitType::class, [
+                    'label' => 'Valider',
+                ]);
+            }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            'show_submit_button' => false, // Valeur par défaut, ajustez selon vos besoins
             // Configurez vos options ici si nécessaire
         ]);
     }

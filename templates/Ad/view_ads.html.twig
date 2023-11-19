@@ -1,11 +1,23 @@
 
 {% extends 'base.html.twig' %}
-
+{% block javascripts %}
+    <script src="{{ asset('js/ad.js') }}"></script>
+{% endblock %}
 {% block title %}Liste des Annonces{% endblock %}
 
 {% block body %}
     <h1>Liste des Annonces</h1>
+   <form method="post" action="{{ path('app_view_ads') }}">
+    {{ form_row(locationForm.departement) }}
+    {{ form_row(locationForm.villeId) }}
+    {{ form_row(locationForm.submit) }}
+    </form>
 
+        <div id="villesSearchContainer">
+            <div id="villesContainer">
+            Liste des villes associées au département ICI
+            </div>
+        </div>
     {% for ad in ads %}
         <div class="ad">
             <h2>{{ ad.title }}</h2>

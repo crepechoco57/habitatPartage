@@ -9,7 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
-class AdType extends AbstractType
+class PostAdType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

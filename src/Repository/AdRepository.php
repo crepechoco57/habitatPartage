@@ -20,7 +20,16 @@ class AdRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Ad::class);
     }
-
+    public function findAdsByCodeDepartement($codeDepartement)
+    {
+        return $this->createQueryBuilder('a')
+            ->join('a.ville', 'v')
+            ->join('v.departement', 'd')
+            ->andWhere('d.code = :codeDepartement')
+            ->setParameter('codeDepartement', $codeDepartement)
+            ->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return Ad[] Returns an array of Ad objects
 //     */
