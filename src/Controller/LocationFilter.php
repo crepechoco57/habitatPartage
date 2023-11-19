@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
+use App\Form\LocationType;
 use App\Entity\Departement;
+
 use App\Repository\VilleRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\HttpFoundation\Request; // Correction ici
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request; 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class LocationFilter extends AbstractController
@@ -22,9 +24,12 @@ class LocationFilter extends AbstractController
 
         $villes = $VilleRepository->findAll();
 
+        $form = $this->createForm(LocationType::class);
+        
         return $this->render('location/location.html.twig', [
             'departements' => $departements,
-            'villes' => $villes
+            'villes' => $villes,
+            'form' => $form->createView()
         ]);
     }
 }

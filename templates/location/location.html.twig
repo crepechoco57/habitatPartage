@@ -1,50 +1,35 @@
-{# ici , formulaire qui permet de filtrer par département et par ville.
-Utile pour l'affichage des annonces. 
-Lorsqu'une ville est séléctionnée -> cherche dans BDD
-La liste d'annonce dont la ville a cet ID#}
-{# Pour la création d'annonce, il faudra créer un formulaire avec tous les champs de l'annonce
-titre, texte...  et y ajouter ce formulaire . 
-Lorsqu'une ville sera selectionnée -> pousse dans BDD l'id de cette ville#}
-{#Pour la consultation : au click les annonces associées à la ville s'affiches
-Pour la soumission d'un nouvel Annonce: au click sur une ville : le formulaire enregistrera lid de la ville#}
+{# location.html.twig #}
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Departements{% endblock %}
 
 {% block javascripts %}
-<script src="{{ asset('js/ad.js') }}"></script>
+    <script src="{{ asset('js/ad.js') }}"></script>
 {% endblock %}
 
 {% block body %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Liste des départements</title>
-</head>
-<body>
-<form method="POST">
-    <label for="departementSelect">Sélectionnez un département :</label>
-    <select id="departementSelect" name="departement">
-        {# Boucle pour afficher les options des départements #}
-        {% for departement in departements %}
-            <option value="{{ departement.code }}">{{ departement.nom }}</option>
-        {% endfor %}
-    </select>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Liste des départements</title>
+    </head>
+    <body>
+    <h1>salut</h1>
+    {{ form_start(form, {'attr': {'id': 'locationForm'}}) }}
+    {{ form_row(form.departement, {'attr': {'id': 'departementSelect'}}) }}
+    {{ form_row(form.villeSearch, {'attr': {'placeholder': 'Rechercher une ville'}}) }}
+    {{ form_row(form.villeId, {'attr': {'placeholder': 'Id de la ville'}}) }}
 
     <button type="submit" id="rechercherVilles">Selectionnez</button>
-</form>
-<div id="villesSearchContainer">
-  <input type="text" id="villeSearch" placeholder="Rechercher une ville">
-  <input type="text" id="villeId" placeholder="Id de la ville">
-  <div id="villesContainer">
-    Liste des villes associées au département ICI
-  </div>
-{# après le click sur une ville, il y a deux options : 
-si l'utilisateur est dans le cadre de l'ajout d'annonce,
-il faut que le formulaire (qui aura importé ce formulaire de filtre par département), retienne la valeur
-de l'id de la ville clickée
-si l'utilisateur est dans le cadre de la consultation d'annonce
-il faut que toutes les annonces liées à l'id de cette ville s'affichent #}
-</body>
-</html>
+    {{ form_end(form) }}
+
+    <div id="villesSearchContainer">
+        <div id="villesContainer">
+            Liste des villes associées au département ICI
+        </div>
+   
+    </div>
+    </body>
+    </html>
 {% endblock %}

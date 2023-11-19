@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\VilleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 // use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -12,7 +15,7 @@ class Ville
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $ville_id = null;
+    private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $code_departement = null;
@@ -23,17 +26,17 @@ class Ville
     #[ORM\Column(length: 250)]
     private ?string $code_postal = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $test = null;
+    #[ORM\OneToMany(mappedBy: 'ville', targetEntity: Ad::class)]
+    private Collection $ads;
 
-    // public function __construct()
-    // {
-    //     $this->ads = new ArrayCollection();
-    // }
+    public function __construct()
+    {
+        $this->ads = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
-        return $this->ville_id;
+        return $this->id;
     }
 
     public function getCodeDepartement(): ?string
@@ -73,16 +76,35 @@ class Ville
         return $this;
     }
 
-    public function getTest(): ?string
+    /**
+     * @return Collection<int, Ad>
+     */
+    public function getAds(): Collection
     {
-        return $this->test;
+        return $this->ads;
     }
 
-    public function setTest(string $test): static
+    public function addAd(Ad $ad): static
     {
-        $this->test = $test;
+        if (!$this->ads->contains($ad)) {
+            $this->ads->add($ad);
+            $ad->setVille($this);
+        }
 
         return $this;
     }
+
+    public function removeAd(Ad $ad): static
+    {
+        if ($this->ads->removeElement($ad)) {
+            // set the owning side to null (unless already changed)
+            if ($ad->getVille() === $this) {
+                $ad->setVille(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 }

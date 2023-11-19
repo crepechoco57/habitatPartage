@@ -1,9 +1,9 @@
 <?php
 
+
 namespace App\Entity;
 
 use App\Repository\AdRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AdRepository::class)]
@@ -17,11 +17,23 @@ class Ad
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $date = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: 'text')]
     private ?string $text = null;
+
+    #[ORM\Column(name: 'ville_id', type: 'integer', nullable: true)]
+    private ?int $villeId = null;
+
+    #[ORM\ManyToOne(targetEntity: Ville::class, inversedBy: 'ads')]
+    #[ORM\JoinColumn(name: 'ville_id', referencedColumnName: 'id')]
+    private ?Ville $ville = null;
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -60,6 +72,30 @@ class Ad
     public function setText(string $text): static
     {
         $this->text = $text;
+
+        return $this;
+    }
+
+    public function getVilleId(): ?int
+    {
+        return $this->villeId;
+    }
+
+    public function setVilleId(?int $villeId): static
+    {
+        $this->villeId = $villeId;
+
+        return $this;
+    }
+
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?Ville $ville): static
+    {
+        $this->ville = $ville;
 
         return $this;
     }

@@ -16,7 +16,7 @@
     <header>
         <ul class='header-links'>
          <li><a href="{{ path('app_home') }}">Accueil(ttes les annonces)</a></li>
-        <li><a href="{{ path('app_location') }}">Poster Annonce</a></li>
+        <li><a href="{{ path('app_post_ad') }}">Poster Annonce</a></li>
         {# Tous les utilisateurs : Si connecté, affiche le mail et lien deconnexion #}
              {% if app.user %}
                 <li>{{ app.user.email }} connecté</li>
