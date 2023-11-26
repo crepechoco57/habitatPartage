@@ -23,12 +23,9 @@ class Ad
     #[ORM\Column(type: 'text')]
     private ?string $text = null;
 
-    #[ORM\Column(name: 'ville_id', type: 'integer', nullable: true)]
-    private ?int $villeId = null;
-
-    #[ORM\ManyToOne(targetEntity: Ville::class, inversedBy: 'ads')]
-    #[ORM\JoinColumn(name: 'ville_id', referencedColumnName: 'id')]
-    private ?Ville $ville = null;
+    #[ORM\ManyToOne(inversedBy: 'ads')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Ville $Ville = null;
 
     public function __construct()
     {
@@ -76,27 +73,17 @@ class Ad
         return $this;
     }
 
-    public function getVilleId(): ?int
-    {
-        return $this->villeId;
-    }
-
-    public function setVilleId(?int $villeId): static
-    {
-        $this->villeId = $villeId;
-
-        return $this;
-    }
-
     public function getVille(): ?Ville
     {
-        return $this->ville;
+        return $this->Ville;
     }
 
-    public function setVille(?Ville $ville): static
+    public function setVille(?Ville $Ville): static
     {
-        $this->ville = $ville;
+        $this->Ville = $Ville;
 
         return $this;
     }
+
+  
 }

@@ -21,17 +21,25 @@ class Departement
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $test = null;
-    /**
-     * @ORM\OneToMany(targetEntity="Ville", mappedBy="departement")
-     */
+    #[ORM\OneToMany(mappedBy: 'Departement', targetEntity: Ville::class)]
     private Collection $villes;
 
     public function __construct()
     {
         $this->villes = new ArrayCollection();
     }
+
+    // #[ORM\Column(length: 255)]
+    // private ?string $test = null;
+    // /**
+    //  * @ORM\OneToMany(targetEntity="Ville", mappedBy="departement")
+    //  */
+    // private Collection $villes;
+
+    // public function __construct()
+    // {
+    //     $this->villes = new ArrayCollection();
+    // }
 
     public function getId(): ?int
     {
@@ -62,22 +70,52 @@ class Departement
         return $this;
     }
 
-    public function getTest(): ?string
-    {
-        return $this->test;
-    }
+    // public function getTest(): ?string
+    // {
+    //     return $this->test;
+    // }
 
-    public function setTest(string $test): static
-    {
-        $this->test = $test;
+    // public function setTest(string $test): static
+    // {
+    //     $this->test = $test;
 
-        return $this;
-    }
-     /**
-     * @return Collection|Ville[]
+    //     return $this;
+    // }
+    //  /**
+    //  * @return Collection|Ville[]
+    //  */
+    // public function getVilles(): Collection
+    // {
+    //     return $this->villes;
+    // }
+
+    /**
+     * @return Collection<int, Ville>
      */
     public function getVilles(): Collection
     {
         return $this->villes;
+    }
+
+    public function addVille(Ville $ville): static
+    {
+        if (!$this->villes->contains($ville)) {
+            $this->villes->add($ville);
+            $ville->setDepartement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVille(Ville $ville): static
+    {
+        if ($this->villes->removeElement($ville)) {
+            // set the owning side to null (unless already changed)
+            if ($ville->getDepartement() === $this) {
+                $ville->setDepartement(null);
+            }
+        }
+
+        return $this;
     }
 }

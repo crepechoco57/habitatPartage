@@ -20,7 +20,10 @@ class VilleRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Ville::class);
     }
-
+    public function findVilleById($villeId)
+    {
+        return $this->findOneBy(['id' => $villeId]);
+    }
 //    /**
 //     * @return Ville[] Returns an array of Ville objects
 //     */

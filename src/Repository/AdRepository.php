@@ -23,8 +23,8 @@ class AdRepository extends ServiceEntityRepository
     public function findAdsByCodeDepartement($codeDepartement)
     {
         return $this->createQueryBuilder('a')
-            ->join('a.ville', 'v')
-            ->join('v.departement', 'd')
+            ->join('a.Ville', 'v')
+            ->join('v.Departement', 'd')
             ->andWhere('d.code = :codeDepartement')
             ->setParameter('codeDepartement', $codeDepartement)
             ->getQuery()

@@ -1,0 +1,34 @@
+{# templates/ville/villes.html.twig #}
+
+app_villes_json, formulaire crée par VilleSearchType, a réutiliser 
+dans la recherche d'annonce et dans l'ajout d'annonce
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit">Rechercher</button>
+    <label for="inseeCode">Insee Code:</label>
+    <input type="text" id="inseeCode" name="inseeCode" readonly>
+    {{ form_end(form) }}
+
+    {% if villes is not empty %}
+    <h1>Villes du département {{ form.vars.value.departement }}</h1>
+
+    <ul>
+        {% for ville in villes %}
+            <li class="clickable-city" data-insee-code="{{ ville.insee_code }}">{{ ville.city_code }} {{ ville.insee_code }}</li>
+        {% endfor %}
+    </ul>
+
+
+{% endif %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var clickableCities = document.querySelectorAll('.clickable-city');
+
+        clickableCities.forEach(function(city) {
+            city.addEventListener('click', function() {
+                var inseeCode = this.getAttribute('data-insee-code');
+                document.getElementById('inseeCode').value = inseeCode;
+            });
+        });
+    });
+</script>

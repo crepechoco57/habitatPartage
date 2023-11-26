@@ -9,6 +9,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+//Formulaire pour affichage des départements, d'un champs de recherche de ville, d'un champ de récup de l'id ville
+
 class LocationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

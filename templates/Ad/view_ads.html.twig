@@ -1,15 +1,14 @@
 
 {% extends 'base.html.twig' %}
-{% block javascripts %}
-    <script src="{{ asset('js/ad.js') }}"></script>
-{% endblock %}
+
 {% block title %}Liste des Annonces{% endblock %}
 
 {% block body %}
     <h1>Liste des Annonces</h1>
    <form method="post" action="{{ path('app_view_ads') }}">
     {{ form_row(locationForm.departement) }}
-    {{ form_row(locationForm.villeId) }}
+    {# {{ form_row(locationForm.villeSearch) }}
+    {{ form_row(locationForm.villeId) }} #}
     {{ form_row(locationForm.submit) }}
     </form>
 
@@ -28,4 +27,7 @@
         </div>
         <hr>
     {% endfor %}
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/ad.js') }}"></script>
 {% endblock %}

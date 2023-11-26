@@ -3,15 +3,17 @@ document.addEventListener("DOMContentLoaded", function () {
   var villeSearchInput = document.getElementById("location_villeSearch");
   var villesContainer = document.getElementById("villesContainer");
   var villeIdInput = document.getElementById("location_villeId");
+  var villeIdInput_post = document.getElementById("post_ad_villeId");
   var timeoutId;
-  var submitButton = document.getElementById("location_submit_button"); // Add this line
-  submitButton.addEventListener("click", function (e) {
-    e.preventDefault();
+  alert("salut");
+  // var submitButton = document.getElementById("location_submit_button"); // Add this line
+  // submitButton.addEventListener("click", function (e) {
+  //   e.preventDefault();
 
-    // Récupérez la valeur du département
-    var selectedDepartement = departementSelect.value;
-    alert(selectedDepartement)
-    
+  //   // Récupérez la valeur du département
+  //   var selectedDepartement = departementSelect.value;
+  //   alert(selectedDepartement);
+  // });
   // Fonction pour effectuer la recherche après un délai
   function delayedSearch() {
     clearTimeout(timeoutId);
@@ -47,16 +49,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 e.preventDefault();
 
                 villeIdInput.value = ville.id;
+                villeIdInput_post.value = ville.id;
                 // Masquer la liste des villes
                 villesContainer.innerHTML = "";
                 // Afficher le nom de la ville dans le champ de recherche
                 villeSearchInput.value = ville.nom;
-                console.log(villeSearchInput.value);
-
-                var adFormVilleIdInput = document.getElementById("ad_villeId");
-                if (adFormVilleIdInput) {
-                  adFormVilleIdInput.value = ville.id;
-                }
               });
 
               // Ajoutez le lien de la ville à l'élément <li>.

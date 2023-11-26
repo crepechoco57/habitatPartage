@@ -20,6 +20,10 @@ class DepartementRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Departement::class);
     }
+    public function findAllDepartements()
+    {
+        return $this->findAll();
+    }
 
 //    /**
 //     * @return Departement[] Returns an array of Departement objects

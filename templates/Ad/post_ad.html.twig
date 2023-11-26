@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block javascripts %}
-    <script src="{{ asset('js/ad.js') }}"></script>
-{% endblock %}
+
 {% block body %}
     <h1>Post Ad</h1>
 
@@ -17,9 +15,12 @@
     {{ form_start(adForm, {'attr': {'id': 'adForm'}}) }}
         {{ form_row(adForm.title) }}
         {{ form_row(adForm.text) }}
-         {{ form_row(adForm.villeId, {'attr': {'type': 'hidden'}}) }}        
+        {{ form_row(adForm.villeId, {'attr': {'type': 'hidden'}}) }}        
         <button type="submit" >Poster l'annonce</button>
     {{ form_end(adForm) }}
-       
+
     
+{% endblock %}
+       {% block javascripts %}
+    <script src="{{ asset('js/ad.js') }}"></script>
 {% endblock %}

@@ -19,11 +19,12 @@ class LocationFilter extends AbstractController
     #[Route('/location', name: 'app_location')]
     public function index(ManagerRegistry $doctrine, Request $request, VilleRepository $VilleRepository): Response // Correction ici
     {
+        //cherche tous les dpts et toutes les villes
         $repository = $doctrine->getRepository(Departement::class);
         $departements = $repository->findAll();
 
         $villes = $VilleRepository->findAll();
-
+        dd($villes);
         $form = $this->createForm(LocationType::class);
         
         return $this->render('location/location.html.twig', [
